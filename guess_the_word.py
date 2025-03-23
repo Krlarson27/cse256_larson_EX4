@@ -1,6 +1,6 @@
 import random
 
-word = ["python", "computer", "science", "programming", "github"]
+word = ["coder", "computer", "science", "programming", "github"]
 
 def chose_word():
     return random.choice(word)
@@ -11,7 +11,7 @@ def display_word(word, guessed_letters):
 def play_game():
     word = chose_word()
     guessed_letters = set()
-    attempts = len(word) + 3
+    attempts = 10
 
 
     print("Welcome to the game of guessing the word!")
@@ -19,27 +19,28 @@ def play_game():
 
     while attempts > 0:
         print("\nWord:", display_word(word, guessed_letters))
+        print(f"Attempts remaining: {attempts}")
         guess = input("Guess a letter: ").lower()
 
-    if len(guess) != 1 or not guess.isalpha():
-        print("Please enter a single letter.")
-        
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter a single letter.")
+            continue
 
-    if guess in guessed_letters:
-        print("You already guessed that letter.")
-        
+        if guess in guessed_letters:
+            print("You already guessed that letter.")
+            continue
 
-    guessed_letters.add(guess)
+        guessed_letters.add(guess)
 
-    if guess in word:
-        print("Good guess!")
-    else:
-        print("Incorrect.")
-        attempts -= 1
+        if guess in word:
+            print("Good guess!")
+        else:
+            print("Incorrect.")
+            attempts -= 1
 
-    if set(word).issubset(guessed_letters):
-        print("Congratulations! You guessed the word:", word)
-        return
+        if set(word).issubset(guessed_letters):
+            print("Congratulations! You guessed the word:", word)
+            return
     
     print("Game over man! The word was:", word)
 
